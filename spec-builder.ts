@@ -1,6 +1,7 @@
 import { and, any, curry, equals, evolve, mapObjIndexed, values, where } from 'ramda';
 import { isNilOrEmpty, omitBy } from 'ramda-adjunct';
 import { IPredicateMap } from './IPredicateMap';
+import { PredicateDescriptor } from './predicate-descriptor';
 import { mergeAllWith } from './utils';
 
 type Token = string | number | Symbol;

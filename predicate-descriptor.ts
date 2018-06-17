@@ -1,6 +1,6 @@
 type binaryPredicate<T> = (expected: T, actual: T) => boolean;
 
-interface PredicateDescriptor<T> {
+export interface PredicateDescriptor<T> {
   key: string;
   predicate: binaryPredicate<T>;
 }
