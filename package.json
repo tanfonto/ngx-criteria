@@ -18,11 +18,13 @@
   "author": "whapky",
   "license": "MIT",
   "dependencies": {
-    "@types/ramda": "^0.25.33",
+    "ramda": "^0.24.1",
+    "ramda-adjunct": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "github:types/npm-ramda#dist",
     "ava": "^1.0.0-beta.2",
-    "ramda": "^0.25.0",
-    "ramda-adjunct": "^2.9.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.7.2"
   }
 }
