@@ -1,4 +1,4 @@
-import { and, any, curry, equals, evolve, mapObjIndexed, values, where } from 'ramda';
+import { and, any, curry, equals, evolve, mapObjIndexed, values, where, keys, pick } from 'ramda';
 import { isNilOrEmpty, omitBy } from 'ramda-adjunct';
 import { IPredicateMap } from './IPredicateMap';
 import { PredicateDescriptor } from './predicate-descriptor';
@@ -22,7 +22,7 @@ function transform(source: object) {
 // TODO: transduce for performance.
 export function buildSpec(pmap: IPredicateMap, input: object, ...ignoredTokens: Token[]) {
   const applicable = omitBy(shouldIgnore(...ignoredTokens), input);
-  const curried = evolve(transform(applicable), pmap);
+  const curried = evolve(transform(applicable), pick(keys(applicable), pmap));
   const spec = mergeAllWith(and, values(curried));
   return where(spec);
 }
