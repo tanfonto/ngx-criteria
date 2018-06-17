@@ -21,10 +21,8 @@ function transform(source: object) {
 
 // TODO: transduce for performance.
 export function buildSpec(pmap: IPredicateMap, input: object, ...ignoredTokens: Token[]) {
-  const ignored = shouldIgnore(...ignoredTokens);
-  const applicable = omitBy(ignored, input);
-  const transformed = transform(applicable);
-  const curried = evolve(transformed, pmap);
+  const applicable = omitBy(shouldIgnore(...ignoredTokens), input);
+  const curried = evolve(transform(applicable), pmap);
   const spec = mergeAllWith(and, values(curried));
   return where(spec);
 }
