@@ -8,9 +8,9 @@ const input = {
 };
 
 const filter = {
-  name: { key: 'name', predicate: (expected, actual) => expected === actual },
-  from: { key: 'amount', predicate: (expected, actual) => expected <= actual },
-  to: { key: 'amount', predicate: (expected, actual) => expected >= actual }
+  name: { model: 'name', predicate: (expected, actual) => expected === actual },
+  from: { model: 'amount', predicate: (expected, actual) => expected <= actual },
+  to: { model: 'amount', predicate: (expected, actual) => expected >= actual }
 };
 
 test('null values should be omitted', t => {

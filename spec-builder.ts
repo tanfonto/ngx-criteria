@@ -1,28 +1,30 @@
-import { and, any, curry, equals, evolve, mapObjIndexed, values, where, keys, pick } from 'ramda';
+import { and, any, curry, equals, evolve, mapObjIndexed, values, where, mapAccum, forEachObjIndexed } from 'ramda';
 import { isNilOrEmpty, omitBy } from 'ramda-adjunct';
-import { IPredicateMap } from './IPredicateMap';
-import { PredicateDescriptor } from './predicate-descriptor';
-import { mergeAllWith } from './utils';
+import { ICriterion, IFormInput } from './criteria';
+import { mergeAllWith } from './utils/ramda';
+import { KeysOf } from '.';
 
-type Token = string | number | Symbol;
-export const shouldIgnore = (...tokens: Token[]) => {
+export const shouldIgnore = (...tokens: any[]) => {
   return function(item: any) {
     return isNilOrEmpty(item) || any(equals(item), tokens);
   }
 }
 
-function transform(source: object) {
+function transform(input: object) {
   return mapObjIndexed((val: any) => {
-    return (p: PredicateDescriptor<any>) => ({
-        [ p.key ]: curry(p.predicate)(val)
+    return (criterion: ICriterion) => ({
+        [ criterion.model ]: curry(criterion.predicate)(val)
       });
-   }, source);
+   }, input);
 }
 
-// TODO: transduce for performance.
-export function buildSpec(pmap: IPredicateMap, input: object, ...ignoredTokens: Token[]) {
-  const applicable = omitBy(shouldIgnore(...ignoredTokens), input);
-  const curried = evolve(transform(applicable), pick(keys(applicable), pmap));
-  const spec = mergeAllWith(and, values(curried));
+export function buildSpec(
+  criteria: KeysOf<ICriterion>, 
+  form: object, 
+  ...ignoredTokens: any[]
+) {
+  const specified = omitBy(shouldIgnore(...ignoredTokens), form);
+  const applicable = evolve(transform(specified), criteria);
+  const spec = mergeAllWith(and, values(applicable));
   return where(spec);
 }

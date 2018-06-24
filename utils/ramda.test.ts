@@ -1,5 +1,5 @@
 import test from 'ava';
-import { mergeAllWith } from './utils';
+import { mergeAllWith } from './ramda';
 
 test.beforeEach(t => {
   t.context['data'] = new Array<any>();

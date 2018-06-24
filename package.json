@@ -18,6 +18,7 @@
   "author": "whapky",
   "license": "MIT",
   "dependencies": {
+    "@angular/forms": "^6.0.6",
     "ramda": "^0.24.1",
     "ramda-adjunct": "^2.9.0"
   },
