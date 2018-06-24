@@ -1,5 +1,5 @@
 {
-  "name": "ngx-filter",
+  "name": "ngx-criteria",
   "version": "0.0.1",
   "description": "filtering utility",
   "main": "index.ts",
