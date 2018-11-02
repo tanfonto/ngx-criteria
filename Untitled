@@ -1,0 +1,18 @@
+import { curry, pick, keys, groupBy, values, mergeWith } from 'ramda';
+
+const criteria = {
+  one: { key: 'a', fn: (x, y) => x + y },
+  two: { key: 'a', fn: (x, y) => x + y },
+  three: { key: 'b', fn: (x, y) => x + y }
+}
+
+const input = {
+  one: 42,
+  two: 48,
+}
+
+const res = values(mergeWith(
+  ({ key, fn }, y) => [ key, curry(fn, y) ], pick(keys(input), criteria), input)
+)
+
+console.log(res)
